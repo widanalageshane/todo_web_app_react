@@ -1,11 +1,18 @@
 import { pool } from "../helper/db.js";
 import { Router } from "express";
-import { emptyOrRows } from "../helper/utils.js";
+// import { emptyOrRows } from "../helper/utils.js";
 import { auth } from "../helper/auth.js";
+import { getTasks, postTask, deleteTask } from "../controllers/TaskController.js";
 
 const todoRouter = Router();
 
-todoRouter.get('/', (req,res,next) => {
+todoRouter.get('/', getTasks);
+
+todoRouter.post('/create',auth, postTask);
+
+todoRouter.delete('/delete/:id', deleteTask);
+
+/*todoRouter.get('/', (req,res,next) => {
    
     pool.query('select * from task', (error, result) => {
         if (error) {
@@ -15,7 +22,7 @@ todoRouter.get('/', (req,res,next) => {
         return res.status(200).json(emptyOrRows(result))
     })
     //res.status(200).json({result: "Success"})
-})
+})*/
 
 todoRouter.post('/create',auth, (req,res,next) => {
 

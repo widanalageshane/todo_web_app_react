@@ -21,7 +21,7 @@ describe('POST Task', () => {
     const email = 'post@foo.com';
     const password = 'post123';   
     it('should post a task', async() => {
-        await insertTestUser(email,password);
+        insertTestUser(email, password);
         const token = await getToken(email);
         const response = await fetch(base_url + '/create', {
             method: 'POST',
@@ -48,11 +48,28 @@ describe('POST Task', () => {
             body: JSON.stringify({'description': null})
         })
         const data = await response.json();
-        expect(response.status).to.equal(500,data.error);
+        expect(response.status).to.equal(400,data.error);
         expect(data).to.be.an('object');
         expect(data).to.include.all.keys('error');
     })
-})
+
+    it("should not create a new task with zero length description", async () => {
+        const token = await getToken(email);
+        const response = await fetch(base_url + '/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token 
+            },
+            body: JSON.stringify({ description: null })
+        });
+        const data = await response.json();
+
+        expect(response.status).to.equal(400, data.error);
+        expect(data).to.be.an('object');
+        expect(data).to.include.all.keys('error');
+    })
+});
 
 describe('DELETE Task', () => {
     it('should delete a task', async() => {
@@ -77,8 +94,8 @@ describe('DELETE Task', () => {
 })
 
 describe('POST register', () => {
-    const email = 'register@foo.com';
-    const password = 'register123';
+    const email = 'post@foo.com';
+    const password = 'post123';
     it('should register with valid email and password', async() => {
         insertTestUser(email,password);
         const response = await fetch(base_url + '/user/register', {
@@ -91,13 +108,13 @@ describe('POST register', () => {
         const data = await response.json();
         expect(response.status).to.equal(500,data.error);
         expect(data).to.be.an('object');
-        expect(data).to.include.all.keys('error'/*,'id','email'*/);
+        expect(data).to.include.all.keys(/*'id','email'*/'error');
     })
 })
 
 describe('POST login',() => {
-    const email = 'login@foo.com';
-    const password = 'login123';
+    const email = 'post@foo.com';
+    const password = 'post123';
     insertTestUser(email,password);
     it('should login with valid credentials', async() => {
         const response = await fetch(base_url + '/user/login', {
