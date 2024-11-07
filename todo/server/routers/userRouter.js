@@ -7,8 +7,9 @@ const { sign } = jwt;
 
 const userRouter = Router();
 
-userRouter.post('/register', async (req,res,next) => {
+userRouter.post('/signup', async (req,res,next) => {
     hash(req.body.password,10,(error,hashedPassword) => {
+        console.log(error)
         if (error) return next(error) // Hash error.
         try {
             pool.query('insert into account (email,password) values ($1,$2) returning *',
@@ -24,7 +25,7 @@ userRouter.post('/register', async (req,res,next) => {
     })
 })
 
-userRouter.post('/login',(req,res,next) => {
+userRouter.post('/signin',(req,res,next) => {
     const invalid_message = 'Invalid credentials';
     try {
         pool.query('select * from account where email=$1',

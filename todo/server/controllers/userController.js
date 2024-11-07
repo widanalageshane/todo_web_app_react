@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import { hash } from "bcrypt";
 import { insertUser, selectUserByEmail } from "../models/User.js";
 import { ApiError } from "../helper/ApiError.js";
@@ -12,6 +14,7 @@ const postRegisteration = async (req, res, next) => {
         if (!req.body.password || req.body.password.length < 8) {
             return next(new ApiError('Invalid Password for user', 400));
         }
+        
         const hashedPassword = await hash(req.body.password, 10);
         const userFromDb = await insertUser(req.body.email, hashedPassword);
         const user = userFromDb.rows[0];

@@ -4,8 +4,8 @@ import React from 'react';
 import { useUser } from '../context/useUser.js';
 
 export const AuthenticationMode = Object.freeze({
-    Login: 'login',
-    Register: 'register'
+    Login: 'signin',
+    Register: 'signup'
 })
 
 export default function Authentication({authenticationMode}) {
@@ -40,7 +40,7 @@ export default function Authentication({authenticationMode}) {
                     <input type='password' value={user.password} onChange={e => setUser({...user,password: e.target.value})} />
                 </div>
                 <div>
-                    <button>{authenticationMode === AuthenticationMode.Login ? 'Login' : 'Submit'}</button>
+                    <button>{authenticationMode === AuthenticationMode.Login ? 'signin' : 'Submit'}</button>
                 </div>
                 <div>
                     <Link to={authenticationMode === AuthenticationMode.Login ? '/signup' : '/signin'}>

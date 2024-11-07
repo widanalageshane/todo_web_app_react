@@ -22,7 +22,7 @@ todoRouter.delete('/delete/:id', deleteTask);
         return res.status(200).json(emptyOrRows(result))
     })
     //res.status(200).json({result: "Success"})
-})*/
+})
 
 todoRouter.post('/create',auth, (req,res,next) => {
 
@@ -48,6 +48,6 @@ todoRouter.delete('/delete/:id', (req,res) => {
         }
         return res.status(200).json({id: id})
     })
-})
+})*/
 
 export default todoRouter;

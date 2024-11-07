@@ -2,7 +2,7 @@ import { pool } from "../helper/db.js";
 
 const insertUser = async (email, password) => {
     return await pool.query("INSERT INTO account (email, password) VALUES ($1, $2) RETURNING *", 
-                            [email, password]);
+    [email, password]);
 }
 
 const selectUserByEmail = async (email) => {

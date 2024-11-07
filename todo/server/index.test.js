@@ -1,3 +1,6 @@
+/* eslint-disable jest/valid-expect */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-expressions */
 import { expect } from 'chai';
 import { initializeTestDb, insertTestUser, getToken } from './helper/test.js';
 
